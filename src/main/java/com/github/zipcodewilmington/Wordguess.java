@@ -1,6 +1,5 @@
 package com.github.zipcodewilmington;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Wordguess {
@@ -63,25 +62,26 @@ public class Wordguess {
 
     public static char processInput(String s) {
 
-
         char c = ' '; // come back to this
 
         if (didPlayerQuit(s)) {
             playerQuitMessage();
         } else {
-            for (int i : setGameArr(s)) {
-                String arrToString = String.valueOf((setGameArr(s))[i]);
-
+            return s.charAt(0);
             }
-        }
+
         return c;
+
+
     }
 
-    public static char[] updatePlayerArray(char c){
+    public static char[] updatePlayerArray(char c, String playerArrAsString){
 
+        char[] updatedArray = new char[setGuess(playerArrAsString)];
 
         return null;
     }
+
 
 
 
