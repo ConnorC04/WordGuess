@@ -48,10 +48,13 @@ public class Wordguess {
         return gameArr;
     }
 
+
+    // Takes in a charArr and formats it before returning it as a string
     public static String formatArray(char[] cArr) {
         return new String(cArr).replaceAll("", " ").trim();
     }
 
+    //
     public static boolean didPlayerQuit(String s) {
         return s.equals("-");
     }
@@ -62,26 +65,37 @@ public class Wordguess {
 
     public static char processInput(String s) {
 
-        char c = ' '; // come back to this
+        char cDefault = ' '; // Default
 
         if (didPlayerQuit(s)) {
             playerQuitMessage();
         } else {
-            return s.charAt(0);
+            return s.charAt(0); // Returns the char value input by the user
+        }
+        return cDefault; // Returns the default
+
+    }
+
+    public static char[] updatePlayerArray(char c, char[] cArrToUpdate){
+
+        if (c == ' '){
+            return cArrToUpdate;
+        }else{
+            for (int i = 0; i < cArrToUpdate.length; i++){
+                if (c == cArrToUpdate[i]){
+                    cArrToUpdate[i] = c;
+                }else{
+                    // guess length --
+                    return cArrToUpdate;
+                }
             }
-
-        return c;
-
-
+        }
+        return cArrToUpdate;
     }
 
-    public static char[] updatePlayerArray(char c, String playerArrAsString){
-
-        char[] updatedArray = new char[setGuess(playerArrAsString)];
-
-        return null;
+    public static int wrongGuess(int i){
+        return ;
     }
-
 
 
 
