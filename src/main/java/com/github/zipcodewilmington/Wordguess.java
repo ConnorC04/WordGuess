@@ -7,14 +7,37 @@ public class Wordguess {
     String[] wordBank = {"cat", "dog", "laptop", "zipcode", "spider-man"};
 
 
-    public void runGame() {
+    public void runGame(String[] wb) {
 
         Scanner scan = new Scanner(System.in);
+
+        //wordToGuess is now the random word from the wordBank
+        String wordToGuess = randWord(wb);
+
+        //guessesLeft is equal to the length of wordToGuess
+        int guessesLeft = setGuess(wordToGuess);
+
+        //player array is a blank array with '_' the length of wordToGuess
+        char[] playerArray = setPlayerArr(wordToGuess);
+        //game array is an array with the length and chars of wordToGuess
+        char[] gameArray = setGameArr(wordToGuess);
+
+        //formats player array and outputs
+        System.out.println(formatArray(playerArray));
+        //formats game array and outputs
+        System.out.println(formatArray(gameArray));
+        //prints how many guesses the player has
+        System.out.println(setGuess(wordToGuess));
+
+        System.out.println("Enter a letter you want to guess: ");
         String userInput = scan.nextLine();
+        //takes in string and returns a char equal to that input
+        char userChar = processInput(userInput);
+        //takes in the user input as a char and the gameArray and checks to see if user input exists in game array
+        char[] alteredArr = updatePlayerArray(userChar, setPlayerArr(wordToGuess), setGameArr(wordToGuess), guessesLeft);
+        System.out.println(formatArray(alteredArr));
 
-        System.out.println("This is the game running");
     }
-
 
     // This method is passed a string array and returns a string
 
@@ -73,19 +96,18 @@ public class Wordguess {
             return s.charAt(0); // Returns the char value input by the user
         }
         return cDefault; // Returns the default
-
     }
 
-    public static char[] updatePlayerArray(char c, char[] cArrToUpdate){
+    public static char[] updatePlayerArray(char c, char[] cArrToUpdate, char[] cArrToReference, int guess){
 
         if (c == ' '){
             return cArrToUpdate;
         }else{
             for (int i = 0; i < cArrToUpdate.length; i++){
-                if (c == cArrToUpdate[i]){
+                if (c == cArrToReference[i]){
                     cArrToUpdate[i] = c;
                 }else{
-                    // guess length --
+                    guess = wrongGuess(i);
                     return cArrToUpdate;
                 }
             }
@@ -94,28 +116,8 @@ public class Wordguess {
     }
 
     public static int wrongGuess(int i){
-        return ;
+        return i--;
     }
-
-
-
-
-
-
-
-
-//          String[] noSpaces = phrase.split(" "); // creates string array with each word in the original string
-//          int wordCount = noSpaces.length; // Creates integer equal to the number of words in the string array
-//
-//
-//          char firstLetter;
-//          String wordBuilder = "";
-//          for (int i = 0; i < wordCount; i++){
-//              String arrToString = noSpaces[i];
-//              firstLetter = arrToString.charAt(0);
-//              wordBuilder = wordBuilder.concat(String.valueOf(firstLetter)).toUpperCase() ;
-//          }
-//          return wordBuilder;
 }
 
 
