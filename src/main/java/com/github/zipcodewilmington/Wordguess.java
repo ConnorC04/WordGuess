@@ -34,8 +34,10 @@ public class Wordguess {
         //takes in string and returns a char equal to that input
         char userChar = processInput(userInput);
         //takes in the user input as a char and the gameArray and checks to see if user input exists in game array
-        char[] alteredArr = updatePlayerArray(userChar, setPlayerArr(wordToGuess), setGameArr(wordToGuess), guessesLeft);
+        char[] alteredArr = updatePlayerArray(userChar, setPlayerArr(wordToGuess), setGameArr(wordToGuess));
         System.out.println(formatArray(alteredArr));
+        //Outputs the number of guesses the user has left
+        System.out.println(checkWrongGuess(userChar, setPlayerArr(wordToGuess), setGameArr(wordToGuess), guessesLeft));
 
     }
 
@@ -57,7 +59,6 @@ public class Wordguess {
         for (int i = 0; i < setGuess(s); i++) {
             playerArr[i] = '_';
         }
-
         return playerArr;
     }
 
@@ -67,7 +68,6 @@ public class Wordguess {
         for (int i = 0; i < setGuess(s); i++) {
             gameArr[i] = s.charAt(i);
         }
-
         return gameArr;
     }
 
@@ -98,25 +98,35 @@ public class Wordguess {
         return cDefault; // Returns the default
     }
 
-    public static char[] updatePlayerArray(char c, char[] cArrToUpdate, char[] cArrToReference, int guess){
+    public static char[] updatePlayerArray(char c, char[] cArrToUpdate, char[] cArrToReference){
 
         if (c == ' '){
             return cArrToUpdate;
-        }else{
-            for (int i = 0; i < cArrToUpdate.length; i++){
+        } else{
+            for (int i = 0; i < cArrToReference.length; i++){
                 if (c == cArrToReference[i]){
                     cArrToUpdate[i] = c;
-                }else{
-                    guess = wrongGuess(i);
-                    return cArrToUpdate;
                 }
             }
         }
         return cArrToUpdate;
     }
 
-    public static int wrongGuess(int i){
-        return i--;
+    public static int checkWrongGuess(char c, char[] cArrToUpdate, char[] cArrToReference, int guess){
+
+        int changeGuess = guess;
+        if (c == ' '){
+            return changeGuess;
+        } else{
+            for (char value : cArrToReference) {
+                if (c == value) {
+                    return guess;
+                }
+            }
+        }
+        guess--;
+        changeGuess = guess;
+        return changeGuess;
     }
 }
 
