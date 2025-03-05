@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Wordguess {
 
-    String[] wordBank = {"cat", "dog", "laptop", "zipcode", "spider-man"};
+    String[] wordBank = {"cat", "dog", "laptop", "zipcode", "spiderman"};
 
 
     public void runGame(String[] wb) {
@@ -27,37 +27,21 @@ public class Wordguess {
         //game array is an array with the length and chars of wordToGuess
         char[] gameArray = setGameArr(wordToGuess);
 
-//        //formats player array and outputs
-//        System.out.println(formatArray(playerArray));
-//        //formats game array and outputs
-//        System.out.println(formatArray(gameArray));
-
-        //prints how many guesses the player has
-
-//        System.out.println("Enter a letter you want to guess: ");
-//        String userInput = scan.nextLine();
-//        //takes in string and returns a char equal to that input
-//        char userChar = processInput(userInput);
-//        //takes in the user input as a char and the gameArray and checks to see if user input exists in game array
-//        char[] alteredArr = updatePlayerArray(userChar, setPlayerArr(wordToGuess), setGameArr(wordToGuess));
-//        System.out.println(formatArray(alteredArr));
-//        //Outputs the number of guesses the user has left
-//        System.out.println(checkWrongGuess(userChar, setPlayerArr(wordToGuess), setGameArr(wordToGuess), guessesLeft));
 
         System.out.println("Let't Play Wordguess version 1.0");
         System.out.println("Guesses left: " + setGuess(wordToGuess));
+        System.out.println(formatArray(playerArray));
         while (gameOn) {
 
-            System.out.println("Guesses left: " + setGuess(wordToGuess));
-            System.out.println(formatArray(playerArray));
             System.out.println("Enter a single character: ");
             String userInput = scan.nextLine();
             if (checkWrongGuess(processInput(userInput), playerArray, gameArray)) {
-                guessesLeft = changeGuessAmount(processInput(userInput), playerArray, gameArray, setGuess(wordToGuess));
+                guessesLeft = changeGuessAmount(processInput(userInput), playerArray, gameArray, guessesLeft);
                 System.out.println("You have " + guessesLeft + " guesses left.");
             }
             System.out.println(formatArray(updatePlayerArray(processInput(userInput), playerArray, gameArray)));
             if (guessesLeft == 0) {
+                System.out.println(":-( You lose!");
                 gameOn = false;
             }
             if (Arrays.equals(updatePlayerArray(processInput(userInput), playerArray, gameArray), gameArray)){
@@ -67,12 +51,12 @@ public class Wordguess {
             if (playAgain.equals("n")){
                 playerQuitMessage();
                 gameOn = false;
+            }else{
+
             }
 
+
         }
-
-
-
     }
 
     // This method is passed a string array and returns a string
@@ -161,7 +145,7 @@ public class Wordguess {
 
     public static int changeGuessAmount(char c, char[] cArrToUpdate, char[] cArrToReference, int guess){
 
-        int changeGuess = guess;
+        int changeGuess = 0;
         if (c == ' '){
             return changeGuess;
         } else{
@@ -171,10 +155,8 @@ public class Wordguess {
                 }
             }
         }
-        guess--;
-        changeGuess = guess;
+        changeGuess = guess - 1;
         return changeGuess;
+
     }
 }
-
-
