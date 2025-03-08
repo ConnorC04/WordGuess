@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Wordguess {
 
-    String[] wordBank = {"cat", "dog", "laptop", "zipcode", "spiderman"};
+    String[] wordBank = {"cat", "dog", "laptop", "zipcode", "spiderman", "pickles"};
 
 
     public void runGame(String[] wb) {
@@ -31,6 +31,7 @@ public class Wordguess {
         System.out.println("Let't Play Wordguess version 1.0");
         System.out.println("Guesses left: " + setGuess(wordToGuess));
         System.out.println(formatArray(playerArray));
+
         while (gameOn) {
 
             System.out.println("Enter a single character: ");
@@ -46,13 +47,16 @@ public class Wordguess {
             }
             if (Arrays.equals(updatePlayerArray(processInput(userInput), playerArray, gameArray), gameArray)){
                 System.out.println("Congrats! You won. Would you like to play again? (y/n)");
-                playAgain = scan.next();
+                playAgain = scan.nextLine();
             }
             if (playAgain.equals("n")){
                 playerQuitMessage();
                 gameOn = false;
             }else{
-
+                if (playAgain.equals("y")){
+                    wordToGuess = randWord(wb);
+                    guessesLeft = setGuess(wordToGuess);
+                }
             }
 
 
